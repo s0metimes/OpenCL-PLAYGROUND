@@ -94,8 +94,12 @@ int main() {
 	CHECK_ERROR(err);
 	bufB = clCreateBuffer(context, CL_MEM_READ_ONLY, sizeof(int) * 16384, NULL, &err);
 	CHECK_ERROR(err);
+	bufC = clCreateBuffer(context, CL_MEM_READ_ONLY, sizeof(int) * 16384, NULL, &err);
+	CHECK_ERROR(err);
 	
 	err = clEnqueueWriteBuffer(queue, bufA, CL_FALSE, 0, sizeof(int) * 16384, A, 0, NULL, NULL);
+	CHECK_ERROR(err);
+	err = clEnqueueWriteBuffer(queue, bufB, CL_FALSE, 0, sizeof(int) * 16384, B, 0, NULL, NULL);
 	CHECK_ERROR(err);
 
 	
@@ -105,7 +109,6 @@ int main() {
 	CHECK_ERROR(err);
 	err = clSetKernelArg(kernel, 2, sizeof(cl_mem), &bufC);
 	CHECK_ERROR(err);
-	printf("This runs?3\n");
 	
 	size_t global_size = 16384;
 	size_t local_size = 256;
